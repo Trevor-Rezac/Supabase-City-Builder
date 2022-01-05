@@ -10,18 +10,74 @@
     <link rel="stylesheet" href="../styles/reset.css">
     <link rel="stylesheet" href="../styles/style.css">
     <link rel="stylesheet" href="../styles/home.css">
-    <title>Document</title>
+    <title>City Builder</title>
 </head>
 
 <body>
     <header>
-        <div class="gutter-right logo">
-            <img src="../assets/big-logo.png" />
-        </div>
+        <button id="logout">Logout</button>
     </header>    
-    <button id="logout">Logout</button>
     <main>
-        <h1>You are logged in!</h1>
+        <h1><span id="name-span">Welcome to Portland!</span></h1>
+
+        <section class="city-container">
+            <div class="skyline container">
+                <div class="skyline-img">
+                    <img src="../assets/skyline-1.jpeg" alt="" id="skyline-img">
+                </div>
+                <label>
+                    Skyline
+                    <select id="skyline-dropdown">
+                        <option value="1">Bridge</option>
+                        <option value="2">Space Needle</option>
+                        <option value="3">GT-R</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="waterfront container">
+                <div class="waterfront-img">
+                    <img src="../assets/waterfront-1.jpeg" alt="" id="waterfront-img">
+                </div>
+                <label>
+                    Waterfront
+                    <select id="waterfront-dropdown">
+                        <option value="1">Cherry Blossoms</option>
+                        <option value="2">Beach Pier</option>
+                        <option value="3">Boat Harbor</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="castle container">
+                <div class="castle-img">
+                    <img src="../assets/castle-1.jpeg" alt="" id="castle-img">
+                </div>
+                <label>
+                    Castle
+                    <select id="castle-dropdown">
+                        <option value="1">Sand</option>
+                        <option value="2">Beach Pier</option>
+                        <option value="3">Boat Harbor</option>
+                    </select>
+                </label>
+            </div>
+        </section>
+
+        <form class="name-form">
+            <input type="text" class="name-input" name="name" placeholder="Name Your City!">
+            <button>Change Name</button>
+        </form>
+        <form class="slogan-form">
+            <input type="text" class="slogan-input" name="slogan" placeholder="City Slogan">
+            <button>Add Slogan</button>
+        </form>
+
+        <div class="slogan-container">
+            <h3>City Slogans</h3>
+            <div class="slogan-list"></div>
+
+        </div>
     </main>
     <footer>
         <div class="copy gutter-right">&copy; 2021 Alchemy Code Lab</div>

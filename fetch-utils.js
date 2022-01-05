@@ -3,14 +3,17 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsI
 
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-export async function getCity() {
-
+export async function updateCityName(newName) {
+    const user = await getUser();
+    
     const response = await client
         .from('city')
-        .select()
+        .update({ name: newName })
+        .match({ user_id: user.user.id })
         .single();
 
     return checkError(response);
+
 }
 
 export async function createDefaultCity() {
@@ -26,6 +29,16 @@ export async function createDefaultCity() {
         //this .single was necessary to return an object from the city array
         .single();
     
+    return checkError(response);
+}
+
+export async function getCity() {
+
+    const response = await client
+        .from('city')
+        .select()
+        .single();
+
     return checkError(response);
 }
 

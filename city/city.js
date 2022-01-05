@@ -1,4 +1,4 @@
-import { checkAuth, createDefaultCity, getCity, logout } from '../fetch-utils.js';
+import { checkAuth, createDefaultCity, getCity, logout, updateCityName } from '../fetch-utils.js';
 
 checkAuth();
 
@@ -41,8 +41,22 @@ window.addEventListener('load', async() => {
     }
 });
 
+nameForm.addEventListener('submit', async(e) => {
+    e.preventDefault();
+
+    const data = new FormData(nameForm);
+
+    const name = data.get('name');
+
+    const updatedCity = await updateCityName(name);
+
+    displayCity(updatedCity);
+
+    nameForm.reset();
+});
+
 function displayCity(city) {
-    console.log('display', city);
+    
     //change the city name element to the city's name
     cityNameEl.textContent = `Welcome to ${city.name}!`;
 

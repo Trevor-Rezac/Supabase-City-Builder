@@ -1,4 +1,4 @@
-import { checkAuth, createDefaultCity, getCity, logout, updateCityName, updateSkyline, updateWaterfront, updateCastle } from '../fetch-utils.js';
+import { checkAuth, createDefaultCity, getCity, logout, updateCityName, updateSkyline, updateWaterfront, updateCastle, updateSlogans } from '../fetch-utils.js';
 
 checkAuth();
 
@@ -55,6 +55,24 @@ nameForm.addEventListener('submit', async(e) => {
     nameForm.reset();
 });
 
+sloganForm.addEventListener('submit', async(e) => {
+    e.preventDefault();
+
+    const data = new FormData(sloganForm);
+
+    const newSlogan = data.get('slogan');
+
+    const city = await getCity();
+
+    city.slogans.push(newSlogan);
+
+    const updatedCity = await updateSlogans(city.slogans);
+
+    displayCity(updatedCity);
+
+    sloganForm.reset();
+});
+
 skylineDropdown.addEventListener('change', async() => {
     const updatedSkyline = await updateSkyline(skylineDropdown.value);
 
@@ -85,6 +103,13 @@ function displayCity(city) {
 
     //then loop through the slogans array and display them the DOM
     //clear the DOM first, then render and append each slogan
-
+    sloganListEl.textContent = '';
+    
+    for (let slogan of city.slogans) {
+        const sloganEl = document.createElement('p');
+        sloganEl.classList.add('slogan');
+        sloganEl.textContent = slogan;
+        sloganListEl.append(sloganEl);
+    }
 }
 

@@ -16,6 +16,32 @@ export async function updateSkyline(newSkyline) {
 
 }
 
+export async function updateWaterfront(newWaterfront) {
+    const user = await getUser();
+
+    const response = await client
+        .from('city')
+        .update({ waterfront: newWaterfront })
+        .match({ user_id: user.user.id })
+        .single();
+
+    return checkError(response);
+
+}
+
+export async function updateCastle(newCastle) {
+    const user = await getUser();
+
+    const response = await client
+        .from('city')
+        .update({ castle: newCastle })
+        .match({ user_id: user.user.id })
+        .single();
+
+    return checkError(response);
+
+}
+
 export async function updateCityName(newName) {
     const user = await getUser();
     

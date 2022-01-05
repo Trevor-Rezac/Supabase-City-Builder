@@ -3,10 +3,33 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsI
 
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+export async function getCity() {
+
+    const response = await client
+        .from('city')
+        .select()
+        .single();
+
+    return checkError(response);
+}
+
+export async function createDefaultCity() {
+    const response = await client
+        .from('city')
+        .insert([{
+            name: 'Portland',
+            skyline: `${getRandomNumber()}`,
+            waterfront: `${getRandomNumber()}`,
+            castle: `${getRandomNumber()}`,
+            slogans: [],
+        }]);
+    
+    return checkError(response);
+}
+
 export async function getUser() {
     return client.auth.session();
 }
-
 
 export async function checkAuth() {
     const user = await getUser();
@@ -40,4 +63,8 @@ export async function logout() {
 
 function checkError({ data, error }) {
     return error ? console.error(error) : data;
+}
+
+function getRandomNumber() {
+    return Math.floor(Math.random() * 3 + 1);
 }

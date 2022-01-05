@@ -1,4 +1,4 @@
-import { checkAuth, logout } from '../fetch-utils.js';
+import { checkAuth, createDefaultCity, getCity, logout } from '../fetch-utils.js';
 
 checkAuth();
 
@@ -14,8 +14,44 @@ const nameForm = document.querySelector('.name-form');
 const sloganForm = document.querySelector('.slogan-form');
 const sloganListEl = document.querySelector('.slogan-list');
 
-// console.log(skylineImgEl, waterfrontImgEl, castleImgEl, skylineDropdown, waterfrontDropdown, castleDropdown, cityNameEl, sloganListEl, nameForm, sloganForm);
+console.log(skylineImgEl, waterfrontImgEl, castleImgEl, skylineDropdown, waterfrontDropdown, castleDropdown, cityNameEl, sloganListEl, nameForm, sloganForm);
 
 logoutButton.addEventListener('click', () => {
     logout();
 });
+
+window.addEventListener('load', async() => {
+    //on load check to see if the user has a city
+    //fetch the city from supabase
+    const city = await getCity();
+    console.log(city);
+
+    //if the user does not already have a city, create a new default city
+    if (!city) {
+        //create the default city
+        const defaultCity = await createDefaultCity();
+        
+        //displays the default city by calling displayCity and passing the defaultCity as an argument.
+        displayCity(defaultCity);
+    } else {
+        //if there already was a city, then just display that city by calling displayCity with the fetched city from supabase
+        displayCity(city);
+    }
+    
+
+});
+
+function displayCity(city) {
+    //change the city name element to the city's name
+    cityNameEl.textContent = `Welcome to ${city.name}!`;
+
+    //change the img src of each option
+    skylineImgEl.src = `../assets/skyline-${city.skyline}.jpeg`;
+    waterfrontImgEl.src = `../assets/waterfront-${city.waterfront}.jpeg`;
+    castleImgEl.src = `../assets/castle-${city.castle}.jpeg`;
+
+    //then loop through the slogans array and display them the DOM
+    //clear the DOM first, then render and append each slogan
+
+}
+

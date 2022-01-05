@@ -22,7 +22,9 @@ export async function createDefaultCity() {
             waterfront: `${getRandomNumber()}`,
             castle: `${getRandomNumber()}`,
             slogans: [],
-        }]);
+        }])
+        //this .single was necessary to return an object from the city array
+        .single();
     
     return checkError(response);
 }

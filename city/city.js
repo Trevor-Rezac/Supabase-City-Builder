@@ -30,18 +30,19 @@ window.addEventListener('load', async() => {
     if (!city) {
         //create the default city
         const defaultCity = await createDefaultCity();
-        
+        console.log(defaultCity);
+
         //displays the default city by calling displayCity and passing the defaultCity as an argument.
         displayCity(defaultCity);
+
     } else {
         //if there already was a city, then just display that city by calling displayCity with the fetched city from supabase
         displayCity(city);
     }
-    
-
 });
 
 function displayCity(city) {
+    console.log('display', city);
     //change the city name element to the city's name
     cityNameEl.textContent = `Welcome to ${city.name}!`;
 

@@ -1,4 +1,4 @@
-import { checkAuth, createDefaultCity, getCity, logout, updateCityName } from '../fetch-utils.js';
+import { checkAuth, createDefaultCity, getCity, logout, updateCityName, updateSkyline } from '../fetch-utils.js';
 
 checkAuth();
 
@@ -24,7 +24,7 @@ window.addEventListener('load', async() => {
     //on load check to see if the user has a city
     //fetch the city from supabase
     const city = await getCity();
-    console.log(city);
+    // console.log(city);
 
     //if the user does not already have a city, create a new default city
     if (!city) {
@@ -53,6 +53,12 @@ nameForm.addEventListener('submit', async(e) => {
     displayCity(updatedCity);
 
     nameForm.reset();
+});
+
+skylineDropdown.addEventListener('change', async() => {
+    const updatedSkyline = await updateSkyline(skylineDropdown.value);
+
+    displayCity(updatedSkyline);
 });
 
 function displayCity(city) {

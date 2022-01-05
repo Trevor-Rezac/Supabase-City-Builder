@@ -3,6 +3,19 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsI
 
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+export async function updateSkyline(newSkyline) {
+    const user = await getUser();
+
+    const response = await client
+        .from('city')
+        .update({ skyline: newSkyline })
+        .match({ user_id: user.user.id })
+        .single();
+
+    return checkError(response);
+
+}
+
 export async function updateCityName(newName) {
     const user = await getUser();
     
